@@ -8,15 +8,15 @@
 /* ─── CSS Variables ─────────────────────────────────────────────────────── */
 :root {
   /* Background layers */
-  --bg-base:        #080b14;
-  --bg-surface:     rgba(15, 20, 35, 0.85);
-  --bg-card:        rgba(20, 28, 50, 0.7);
-  --bg-elevated:    rgba(30, 40, 70, 0.6);
-  --bg-hover:       rgba(40, 55, 95, 0.5);
+  --bg-base:        #000000;
+  --bg-surface:     rgba(10, 10, 10, 0.85);
+  --bg-card:        rgba(24, 24, 27, 0.7);
+  --bg-elevated:    rgba(39, 39, 42, 0.6);
+  --bg-hover:       rgba(255, 255, 255, 0.05);
 
   /* Brand colors */
-  --accent-primary: #6366f1;
-  --accent-glow:    rgba(99, 102, 241, 0.35);
+  --accent-primary: #3b82f6;
+  --accent-glow:    rgba(59, 130, 246, 0.35);
   --accent-green:   #10b981;
   --accent-teal:    #14b8a6;
   --accent-amber:   #f59e0b;
@@ -24,13 +24,13 @@
   --accent-pink:    #ec4899;
 
   /* Text */
-  --text-primary:   #f1f5f9;
-  --text-secondary: #94a3b8;
-  --text-muted:     #475569;
+  --text-primary:   #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-muted:     #71717a;
 
   /* Borders */
-  --border-subtle:  rgba(99, 102, 241, 0.15);
-  --border-active:  rgba(99, 102, 241, 0.5);
+  --border-subtle:  rgba(255, 255, 255, 0.08);
+  --border-active:  rgba(59, 130, 246, 0.5);
 
   /* Shadows */
   --shadow-card:    0 8px 32px rgba(0, 0, 0, 0.4);
@@ -65,8 +65,7 @@ body {
   color: var(--text-primary);
   min-height: 100vh;
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99, 102, 241, 0.15) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(16, 185, 129, 0.07) 0%, transparent 50%);
+    radial-gradient(ellipse 60% 50% at 50% -20%, rgba(59, 130, 246, 0.12) 0%, transparent 60%);
 }
 
 /* ─── Typography ────────────────────────────────────────────────────────── */
@@ -127,13 +126,13 @@ h4 { font-size: 1.125rem; font-weight: 600; }
 .btn:disabled       { opacity: 0.45; cursor: not-allowed; }
 
 .btn-primary {
-  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  background: #3b82f6;
   color: white;
-  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
 }
 
 .btn-primary:hover:not(:disabled) {
-  box-shadow: 0 6px 28px rgba(99, 102, 241, 0.6);
+  box-shadow: 0 6px 28px rgba(59, 130, 246, 0.5);
   transform: translateY(-1px);
 }
 

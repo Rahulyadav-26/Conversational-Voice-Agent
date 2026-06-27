@@ -1,0 +1,167 @@
+
+> frontend@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.9 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://10.108.212.193:3000
+- Environments: .env.local
+✓ Ready in 406ms
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /home/rahul/package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * /home/rahul/CODING/convoagent/frontend/package-lock.json
+
+
+ GET /monitor 200 in 488ms (next.js: 237ms, application-code: 251ms)
+ GET / 200 in 127ms (next.js: 71ms, application-code: 56ms)
+ GET /monitor 200 in 38ms (next.js: 3ms, application-code: 34ms)
+ GET / 200 in 34ms (next.js: 2ms, application-code: 32ms)
+ GET /monitor 200 in 64ms (next.js: 4ms, application-code: 60ms)
+ GET /monitor 200 in 242ms (next.js: 59ms, application-code: 183ms)
+ GET / 200 in 45ms (next.js: 6ms, application-code: 39ms)
+ GET /monitor 200 in 60ms (next.js: 2ms, application-code: 58ms)
+ GET / 200 in 78ms (next.js: 16ms, application-code: 63ms)
+ GET / 200 in 55ms (next.js: 4ms, application-code: 51ms)
+[browser] ⨯ unhandledRejection: ChunkLoadError: Failed to load chunk /_next/static/chunks/%5Bturbopack%5D_browser_dev_hmr-client_hmr-client_ts_1mojsay._.js from module [turbopack]/browser/dev/hmr-client/hmr-client.ts [app-client] (ecmascript, async loader)
+[browser] ⨯ unhandledRejection: ChunkLoadError: Failed to load chunk /_next/static/chunks/0o2m_next_dist_client_components_builtin_global-error_0dys23y.js from module [project]/CODING/convoagent/frontend/node_modules/next/dist/compiled/react-server-dom-turbopack/cjs/react-server-dom-turbopack-client.browser.development.js [app-client] (ecmascript)
+ GET / 200 in 47ms (next.js: 8ms, application-code: 38ms)
+ GET / 200 in 27ms (next.js: 1875µs, application-code: 25ms)
+ GET / 200 in 37ms (next.js: 2ms, application-code: 34ms)
+ GET / 200 in 30ms (next.js: 2ms, application-code: 27ms)
+ GET / 200 in 43ms (next.js: 4ms, application-code: 39ms)
+ GET / 200 in 40ms (next.js: 3ms, application-code: 37ms)
+ GET / 200 in 31ms (next.js: 1769µs, application-code: 29ms)
+ GET / 200 in 43ms (next.js: 3ms, application-code: 40ms)
+ GET / 200 in 30ms (next.js: 2ms, application-code: 28ms)
+ GET / 200 in 38ms (next.js: 2ms, application-code: 35ms)
+[browser] ping timeout triggered. last pong received at: Sat, 27 Jun 2026 12:52:24 GMT {
+  participant: [32m'caller-ajlqt7'[39m,
+  participantID: [32m'PA_FyZCaMFUeWFG'[39m,
+  room: [32m'appointment-room'[39m,
+  roomID: [32m'RM_BuQgk2QBh924'[39m
+}
+[browser] signal disconnected {
+  participant: [32m'caller-ajlqt7'[39m,
+  participantID: [32m'PA_FyZCaMFUeWFG'[39m,
+  room: [32m'appointment-room'[39m,
+  roomID: [32m'RM_BuQgk2QBh924'[39m
+} (<anonymous>)
+[browser] peerconnection failed disconnected {
+  participant: [32m'caller-ajlqt7'[39m,
+  participantID: [32m'PA_FyZCaMFUeWFG'[39m,
+  room: [32m'appointment-room'[39m,
+  roomID: [32m'RM_BuQgk2QBh924'[39m
+} (<anonymous>)
+[browser] already attempting reconnect, returning early {
+  participant: [32m'caller-ajlqt7'[39m,
+  participantID: [32m'PA_FyZCaMFUeWFG'[39m,
+  room: [32m'appointment-room'[39m,
+  roomID: [32m'RM_BuQgk2QBh924'[39m
+} (<anonymous>)
+[browser] Abort handler called {
+  error: [32m'[object Error]'[39m,
+  participant: [32m'caller-ajlqt7'[39m,
+  participantID: [32m'PA_FyZCaMFUeWFG'[39m,
+  room: [32m'appointment-room'[39m,
+  roomID: [32m'RM_BuQgk2QBh924'[39m
+} 
+    at Generator.throw (<anonymous>) (<anonymous>)
+[browser] reconnect disconnected {
+  participant: [32m'caller-ajlqt7'[39m,
+  participantID: [32m'PA_FyZCaMFUeWFG'[39m,
+  room: [32m'appointment-room'[39m,
+  roomID: [32m'RM_BuQgk2QBh924'[39m
+} (<anonymous>)
+[browser] websocket closed {
+  code: [33m1006[39m,
+  participant: [32m'caller-ajlqt7'[39m,
+  participantID: [32m'PA_FyZCaMFUeWFG'[39m,
+  reason: [32m''[39m,
+  room: [32m'appointment-room'[39m,
+  roomID: [32m'RM_BuQgk2QBh924'[39m,
+  state: [33m4[39m,
+  wasClean: [33mfalse[39m
+}
+[browser] websocket closed {
+  code: [33m1006[39m,
+  participant: [32m'caller-ajlqt7'[39m,
+  participantID: [32m'PA_FyZCaMFUeWFG'[39m,
+  reason: [32m''[39m,
+  room: [32m'appointment-room'[39m,
+  roomID: [32m'RM_BuQgk2QBh924'[39m,
+  state: [33m2[39m,
+  wasClean: [33mfalse[39m
+}
+[browser] Abort handler called {
+  error: [32m'[object Error]'[39m,
+  participant: [32m'caller-ajlqt7'[39m,
+  participantID: [32m'PA_FyZCaMFUeWFG'[39m,
+  room: [32m'appointment-room'[39m,
+  roomID: [32m'RM_BuQgk2QBh924'[39m
+} 
+    at Generator.throw (<anonymous>) (<anonymous>)
+[browser] reconnect disconnected {
+  participant: [32m'caller-ajlqt7'[39m,
+  participantID: [32m'PA_FyZCaMFUeWFG'[39m,
+  room: [32m'appointment-room'[39m,
+  roomID: [32m'RM_BuQgk2QBh924'[39m
+} (<anonymous>)
+[browser] websocket closed {
+  code: [33m1006[39m,
+  participant: [32m'caller-ajlqt7'[39m,
+  participantID: [32m'PA_FyZCaMFUeWFG'[39m,
+  reason: [32m''[39m,
+  room: [32m'appointment-room'[39m,
+  roomID: [32m'RM_BuQgk2QBh924'[39m,
+  state: [33m4[39m,
+  wasClean: [33mfalse[39m
+}
+[browser] Abort handler called {
+  error: [32m'[object Error]'[39m,
+  participant: [32m'caller-ajlqt7'[39m,
+  participantID: [32m'PA_FyZCaMFUeWFG'[39m,
+  room: [32m'appointment-room'[39m,
+  roomID: [32m'RM_BuQgk2QBh924'[39m
+} 
+    at Generator.throw (<anonymous>) (<anonymous>)
+[browser] reconnect disconnected {
+  participant: [32m'caller-ajlqt7'[39m,
+  participantID: [32m'PA_FyZCaMFUeWFG'[39m,
+  room: [32m'appointment-room'[39m,
+  roomID: [32m'RM_BuQgk2QBh924'[39m
+} (<anonymous>)
+[browser] websocket closed {
+  code: [33m1006[39m,
+  participant: [32m'caller-ajlqt7'[39m,
+  participantID: [32m'PA_FyZCaMFUeWFG'[39m,
+  reason: [32m''[39m,
+  room: [32m'appointment-room'[39m,
+  roomID: [32m'RM_BuQgk2QBh924'[39m,
+  state: [33m4[39m,
+  wasClean: [33mfalse[39m
+}
+[browser] Received leave request while trying to (re)connect {
+  error: [32m'[object Error]'[39m,
+  participant: [32m'caller-ajlqt7'[39m,
+  participantID: [32m'PA_FyZCaMFUeWFG'[39m,
+  room: [32m'appointment-room'[39m,
+  roomID: [32m'RM_BuQgk2QBh924'[39m
+} 
+    at Generator.throw (<anonymous>) (<anonymous>)
+[browser] reconnect disconnected {
+  participant: [32m'caller-ajlqt7'[39m,
+  participantID: [32m'PA_FyZCaMFUeWFG'[39m,
+  room: [32m'appointment-room'[39m,
+  roomID: [32m'RM_BuQgk2QBh924'[39m
+} (<anonymous>)
+[browser] failed to remove track {
+  error: [32m'[object DOMException]'[39m,
+  participant: [32m'caller-ajlqt7'[39m,
+  participantID: [32m'PA_S2zVwwbtRS2x'[39m,
+  room: [32m'appointment-room'[39m,
+  roomID: [32m'RM_SsMqkmogDBC8'[39m
+} (<anonymous>)
+[?25h

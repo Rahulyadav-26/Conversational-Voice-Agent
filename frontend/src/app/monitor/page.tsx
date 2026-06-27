@@ -593,26 +593,37 @@ export default function MonitorPage() {
 
         {/* Setup */}
         {phase === "setup" && (
-          <div className="setup-panel card fade-in">
-            <div style={{ fontSize: "3rem", marginBottom: "16px" }}>📊</div>
-            <h2>Join as Watcher</h2>
-            <p style={{ color: "var(--text-secondary)", marginBottom: "24px" }}>
-              Enter the room name to monitor a live call
-            </p>
-            <div style={{ display: "flex", gap: "12px", maxWidth: "400px" }}>
-              <input
-                id="input-monitor-room"
-                className="input"
-                placeholder="Room name"
-                value={roomName}
-                onChange={e => setRoomName(e.target.value)}
-                onKeyDown={e => e.key === "Enter" && joinMonitor()}
-              />
-              <button id="btn-join-monitor" className="btn btn-primary" onClick={joinMonitor}>
-                Join
-              </button>
+          <div className="setup-panel card fade-in" style={{ padding: 0 }}>
+            <div className="card-top-bar" style={{ background: "rgba(39, 39, 42, 0.5)", padding: "12px 20px", display: "flex", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.05)", position: "relative" }}>
+              <div style={{ display: "flex", gap: "8px" }}>
+                <span style={{ width: "12px", height: "12px", borderRadius: "50%", background: "#ff5f56" }}></span>
+                <span style={{ width: "12px", height: "12px", borderRadius: "50%", background: "#ffbd2e" }}></span>
+                <span style={{ width: "12px", height: "12px", borderRadius: "50%", background: "#27c93f" }}></span>
+              </div>
+              <div style={{ position: "absolute", left: "50%", transform: "translateX(-50%)", fontSize: "0.8rem", fontWeight: 500, color: "#71717a" }}>Join as Watcher</div>
             </div>
-            {error && <div style={{ color: "#fca5a5", marginTop: "12px", fontSize: "0.85rem" }}>{error}</div>}
+            
+            <div style={{ padding: "60px 48px", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
+              <div style={{ fontSize: "3rem", marginBottom: "16px" }}>📊</div>
+              <h2 style={{ fontSize: "2rem", fontWeight: 700, marginBottom: "12px" }}>Join as Watcher</h2>
+              <p style={{ color: "var(--text-secondary)", marginBottom: "32px", fontSize: "1.1rem" }}>
+                Enter the room name to monitor a live call
+              </p>
+              <div style={{ display: "flex", gap: "12px", width: "100%", maxWidth: "400px" }}>
+                <input
+                  id="input-monitor-room"
+                  className="input"
+                  placeholder="Room name (e.g. appointment-room)"
+                  value={roomName}
+                  onChange={e => setRoomName(e.target.value)}
+                  onKeyDown={e => e.key === "Enter" && joinMonitor()}
+                />
+                <button id="btn-join-monitor" className="btn btn-primary" onClick={joinMonitor}>
+                  Join
+                </button>
+              </div>
+              {error && <div style={{ color: "#fca5a5", marginTop: "16px", fontSize: "0.9rem", background: "rgba(239,68,68,0.1)", padding: "12px 16px", borderRadius: "8px", border: "1px solid rgba(239,68,68,0.2)" }}>{error}</div>}
+            </div>
           </div>
         )}
 
@@ -662,17 +673,17 @@ export default function MonitorPage() {
         }
         .sidebar-logo { display: flex; align-items: center; gap: 12px; padding: 0 20px 24px; border-bottom: 1px solid var(--border-subtle); margin-bottom: 16px; }
         .sidebar-nav { display: flex; flex-direction: column; gap: 4px; padding: 0 12px; }
-        .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: var(--radius-md); font-size: 0.9rem; color: var(--text-secondary); cursor: pointer; transition: var(--transition); text-decoration: none; }
+        .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: var(--radius-md); font-size: 0.95rem; font-weight: 500; color: var(--text-secondary); cursor: pointer; transition: var(--transition); text-decoration: none; }
         .nav-item:hover { background: var(--bg-hover); color: var(--text-primary); }
-        .nav-item.active { background: rgba(99,102,241,0.15); color: #818cf8; }
+        .nav-item.active { background: rgba(59, 130, 246, 0.15); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.3); }
         .sidebar-room-info { margin-top: auto; padding: 16px 20px; border-top: 1px solid var(--border-subtle); }
         .sidebar-section-title { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
         .sidebar-detail { display: flex; flex-direction: column; gap: 2px; margin-bottom: 10px; }
         .sidebar-key { font-size: 0.72rem; color: var(--text-muted); }
         .sidebar-val { font-size: 0.82rem; word-break: break-all; }
-        .monitor-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-        .monitor-page-header { padding: 20px 24px; border-bottom: 1px solid var(--border-subtle); }
-        .setup-panel { text-align: center; padding: 60px; margin: 40px auto; max-width: 600px; display: flex; flex-direction: column; align-items: center; }
+        .monitor-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: #000; }
+        .monitor-page-header { padding: 24px 40px; border-bottom: 1px solid var(--border-subtle); background: rgba(0,0,0,0.8); backdrop-filter: blur(12px); }
+        .setup-panel { margin: 80px auto; max-width: 650px; width: 100%; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); overflow: hidden; }
       `}</style>
     </div>
   );

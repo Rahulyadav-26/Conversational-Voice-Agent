@@ -98,19 +98,20 @@ class VoiceAgent(Agent):
         logger.info("Watcher initiated takeover")
         self._watcher_has_control = True
 
-        await self.session.room.local_participant.set_attributes({
+        await self.ctx.room.local_participant.set_attributes({
             "agent_state": "paused",
             "agent_action": "Watcher has taken over the call",
         })
 
         # Interrupt current speech and pause STT
-        self.session.interrupt()
-        await self.session.set_input_audio_enabled(False)
+        if hasattr(self, "_voice_session"):
+            self._voice_session.interrupt()
+            await self._voice_session.set_input_audio_enabled(False)
 
-        await self.session.say(
-            "I'm connecting you with a team member now. Please hold on."
-        )
-        await self.session.set_output_audio_enabled(False)  # mute agent TTS
+            await self._voice_session.say(
+                "I'm connecting you with a team member now. Please hold on."
+            )
+            await self._voice_session.set_output_audio_enabled(False)  # mute agent TTS
 
         return json.dumps({"status": "ok", "message": "Agent paused"})
 
@@ -121,17 +122,18 @@ class VoiceAgent(Agent):
         logger.info("Watcher returned control to agent")
         self._watcher_has_control = False
 
-        await self.session.set_input_audio_enabled(True)
-        await self.session.set_output_audio_enabled(True)
+        if hasattr(self, "_voice_session"):
+            await self._voice_session.set_input_audio_enabled(True)
+            await self._voice_session.set_output_audio_enabled(True)
 
-        await self.session.room.local_participant.set_attributes({
-            "agent_state": "listening",
-            "agent_action": "Resumed from watcher handoff",
-        })
+            await self.ctx.room.local_participant.set_attributes({
+                "agent_state": "listening",
+                "agent_action": "Resumed from watcher handoff",
+            })
 
-        await self.session.say(
-            "I'm back! Is there anything else I can help you with?"
-        )
+            await self._voice_session.say(
+                "I'm back! Is there anything else I can help you with?"
+            )
         return json.dumps({"status": "ok", "message": "Agent resumed"})
 
     # ── Post-call summary ────────────────────────────────────────────────────
@@ -202,7 +204,7 @@ class VoiceAgent(Agent):
                     "room_id": room_id,
                 },
             }).encode()
-            await self.session.room.local_participant.publish_data(
+            await self.ctx.room.local_participant.publish_data(
                 summary_payload, reliable=True
             )
         except Exception as e:
@@ -230,6 +232,8 @@ async def entrypoint(ctx: JobContext) -> None:
     )
 
     agent = VoiceAgent()
+    agent.ctx = ctx
+    agent._voice_session = session
 
     # Connect the session to the room (handles audio tracks automatically)
     await session.start(

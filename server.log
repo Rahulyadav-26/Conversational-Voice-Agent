@@ -1,0 +1,16 @@
+INFO:     Started server process [172996]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:33706 - "GET /token?identity=watcher-3kkx7&room=appointment-room&role=watcher HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33708 - "GET /token?identity=caller-u4vy7m&room=appointment-room&role=caller HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39146 - "GET /token?identity=watcher-x5290&room=appointment-room&role=watcher HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39156 - "GET /token?identity=caller-khaeuf&room=appointment-room&role=caller HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48406 - "GET /token?identity=watcher-5o5hd&room=appointment-room&role=watcher HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48420 - "GET /token?identity=caller-khaeuf&room=appointment-room&role=caller HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53064 - "GET /token?identity=watcher-zsym7&room=appointment-room&role=watcher HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54764 - "GET /token?identity=caller-ajlqt7&room=appointment-room&role=caller HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [172996]
