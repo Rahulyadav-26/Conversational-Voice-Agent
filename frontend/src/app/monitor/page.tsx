@@ -519,12 +519,16 @@ export default function MonitorPage() {
   const [tokenData, setTokenData] = useState<TokenResponse | null>(null);
   const [summary, setSummary] = useState<CallSummary | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const watcherId = useRef(`watcher-${Math.random().toString(36).slice(2, 7)}`);
+  const [watcherId, setWatcherId] = useState("");
+
+  useEffect(() => {
+    setWatcherId(`watcher-${Math.random().toString(36).slice(2, 7)}`);
+  }, []);
 
   const joinMonitor = async () => {
     setError(null);
     try {
-      const data = await fetchToken(watcherId.current, roomName, "watcher");
+      const data = await fetchToken(watcherId, roomName, "watcher");
       setTokenData(data);
       setPhase("monitoring");
     } catch (e: any) {
@@ -566,7 +570,7 @@ export default function MonitorPage() {
           </div>
           <div className="sidebar-detail">
             <span className="sidebar-key">Identity</span>
-            <span className="sidebar-val mono" style={{ fontSize: "0.75rem" }}>{watcherId.current}</span>
+            <span className="sidebar-val mono" style={{ fontSize: "0.75rem" }}>{watcherId}</span>
           </div>
           <div className="sidebar-detail">
             <span className="sidebar-key">Status</span>
@@ -625,7 +629,7 @@ export default function MonitorPage() {
           >
             <MonitorDashboard
               onSummary={handleSummary}
-              watcherId={watcherId.current}
+              watcherId={watcherId}
               roomName={roomName}
             />
           </LiveKitRoom>

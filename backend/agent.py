@@ -30,13 +30,13 @@ from livekit.agents import (
     JobContext,
     RoomInputOptions,
     WorkerOptions,
+    WorkerType,
     cli,
     function_tool,
     metrics,
 )
 from livekit.agents.llm import ChatContext, ChatMessage
-from livekit.plugins import cartesia, deepgram, groq, silero
-from livekit.plugins.turn_detector import EOUModel
+from livekit.plugins import cartesia, deepgram, groq
 
 from database import init_db, save_call_summary
 from tools import ALL_TOOLS
@@ -89,36 +89,6 @@ class VoiceAgent(Agent):
         self._call_start_time: Optional[float] = None
         self._watcher_has_control: bool = False
 
-    # ── Lifecycle hooks ──────────────────────────────────────────────────────
-
-    async def on_enter(self) -> None:
-        """Called when the agent joins the room and session starts."""
-        self._call_start_time = time.time()
-        logger.info("Agent A entered room")
-
-        # Publish initial state
-        await self.session.room.local_participant.set_attributes({
-            "agent_state": "listening",
-            "agent_intent": "greeting",
-            "agent_action": "Ready",
-            "collected_data": "{}",
-        })
-
-        # Register RPC handlers for watcher control
-        self.session.room.local_participant.register_rpc_method(
-            "takeover", self._handle_takeover_rpc
-        )
-        self.session.room.local_participant.register_rpc_method(
-            "return_to_agent", self._handle_return_to_agent_rpc
-        )
-
-        # Greet the caller
-        await self.session.say(
-            "Hello! Thank you for calling. I'm Alex, your scheduling assistant. "
-            "How can I help you today?",
-            allow_interruptions=True,
-        )
-
     # ── RPC handlers ────────────────────────────────────────────────────────
 
     async def _handle_takeover_rpc(
@@ -163,27 +133,6 @@ class VoiceAgent(Agent):
             "I'm back! Is there anything else I can help you with?"
         )
         return json.dumps({"status": "ok", "message": "Agent resumed"})
-
-    # ── Pipeline hooks ───────────────────────────────────────────────────────
-
-    async def on_llm_thinking(self) -> None:
-        """Called when the LLM is processing — update state."""
-        await self.session.room.local_participant.set_attributes({
-            "agent_state": "thinking",
-        })
-
-    async def on_agent_speaking(self) -> None:
-        """Called when TTS starts — update state."""
-        await self.session.room.local_participant.set_attributes({
-            "agent_state": "speaking",
-        })
-
-    async def on_user_speech_started(self) -> None:
-        """Caller starts speaking — update state."""
-        if not self._watcher_has_control:
-            await self.session.room.local_participant.set_attributes({
-                "agent_state": "listening",
-            })
 
     # ── Post-call summary ────────────────────────────────────────────────────
 
@@ -278,8 +227,6 @@ async def entrypoint(ctx: JobContext) -> None:
         stt=deepgram.STT(model="nova-2-general"),
         llm=groq.LLM(model="llama-3.3-70b-versatile"),
         tts=cartesia.TTS(voice="79a125e8-cd45-4c13-8a67-188112f4dd22"),  # "Lively Conversational"
-        vad=silero.VAD.load(),
-        turn_detection=EOUModel(),
     )
 
     agent = VoiceAgent()
@@ -289,9 +236,39 @@ async def entrypoint(ctx: JobContext) -> None:
         room=ctx.room,
         agent=agent,
         room_input_options=RoomInputOptions(
-            # Subscribe to audio from all participants
             noise_cancellation=True,
         ),
+    )
+
+    agent._call_start_time = time.time()
+    
+    # Register RPC handlers for watcher control
+    ctx.room.local_participant.register_rpc_method("takeover", agent._handle_takeover_rpc)
+    ctx.room.local_participant.register_rpc_method("return_to_agent", agent._handle_return_to_agent_rpc)
+
+    # Publish initial state
+    await ctx.room.local_participant.set_attributes({
+        "agent_state": "listening",
+        "agent_intent": "greeting",
+        "agent_action": "Ready",
+        "collected_data": "{}",
+    })
+
+    # Listen to agent state changes to update the UI
+    @session.on("agent_state_changed")
+    def on_state_changed(state):
+        # state is an enum, e.g. AgentState.LISTENING
+        state_str = str(state).split('.')[-1].lower()
+        if not agent._watcher_has_control:
+            asyncio.create_task(
+                ctx.room.local_participant.set_attributes({"agent_state": state_str})
+            )
+
+    # Greet the caller
+    await session.say(
+        "Hello! Thank you for calling. I'm Alex, your scheduling assistant. "
+        "How can I help you today?",
+        allow_interruptions=True,
     )
 
     # ── Wait for the room to disconnect ──────────────────────────────────────
@@ -301,13 +278,7 @@ async def entrypoint(ctx: JobContext) -> None:
     def on_room_disconnect(*args):
         disconnect_event.set()
 
-    # Also handle participant disconnect (caller leaves)
-    @ctx.room.on("participant_disconnected")
-    def on_participant_leave(participant: rtc.RemoteParticipant):
-        # If the caller (non-agent participant) leaves, we end the call
-        if participant.kind != rtc.ParticipantKind.PARTICIPANT_KIND_AGENT:
-            logger.info(f"Caller disconnected: {participant.identity}")
-            disconnect_event.set()
+    # Wait for the room to disconnect (dev mode automatically destroys room when empty)
 
     await disconnect_event.wait()
 
@@ -326,6 +297,6 @@ if __name__ == "__main__":
     cli.run_app(
         WorkerOptions(
             entrypoint_fnc=entrypoint,
-            worker_type="room",  # one agent per room
+            worker_type=WorkerType.ROOM,  # one agent per room
         )
     )
